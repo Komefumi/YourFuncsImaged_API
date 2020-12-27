@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	req "YourFuncsImaged_API/app/request"
+	req "github.com/Komefumi/YourFuncsImaged_API/app/request"
 
 	"github.com/revel/revel"
 )
