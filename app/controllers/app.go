@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	req "YourFuncsImaged_API/app/request"
+
 	"github.com/revel/revel"
 )
 
@@ -17,6 +19,7 @@ func (c App) Index() revel.Result {
 }
 
 func (c App) Register() revel.Result {
+	var jsonData map[string]req.JSONRequest
 	response := JSONResponse{}
 	err := error(nil)
 	response.Success = err == nil
