@@ -1,4 +1,4 @@
-module YourFuncsImaged_API
+module github.com/Komefumi/YourFuncsImaged_API
 
 go 1.15
 
