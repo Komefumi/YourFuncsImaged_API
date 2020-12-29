@@ -9,6 +9,7 @@ module:testrunner
 
 GET     /                                       App.Index
 POST     /register                                       App.Register
+POST     /login                                       App.Login
 # GET     /                                       App.Index
 
 # Ignore favicon requests

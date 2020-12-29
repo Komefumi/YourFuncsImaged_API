@@ -1,6 +1,7 @@
 package app
 
 import (
+	"github.com/joho/godotenv"
 	"github.com/revel/revel"
 )
 
@@ -14,6 +15,7 @@ var (
 
 func init() {
 	// Filters is the default set of global filters.
+	godotenv.Load()
 	revel.Filters = []revel.Filter{
 		revel.PanicFilter,             // Recover from panics and display an error page instead.
 		revel.RouterFilter,            // Use the routing table to select the right Action

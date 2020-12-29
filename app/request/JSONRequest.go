@@ -7,6 +7,8 @@ type JSONRequest struct {
 
 // RegistrationRequest will holds the payload for registration
 type RegistrationRequest struct {
-	email string
-	password string
+	data struct {
+		email string
+		password string
+	}
 }
