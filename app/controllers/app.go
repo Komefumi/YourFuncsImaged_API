@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	models "github.com/Komefumi/YourFuncsImaged_API/app/models"
-	"github.com/Komefumi/YourFuncsImaged_API/app/util"
+	util "github.com/Komefumi/YourFuncsImaged_API/app/util"
 	"github.com/revel/revel"
 	"github.com/tidwall/gjson"
 )
@@ -16,6 +16,11 @@ type EmptyResponse struct {
 
 // App Controller
 type App struct {
+	*revel.Controller
+}
+
+// AppWithAuth controller
+type AppWithAuth struct {
 	*revel.Controller
 }
 

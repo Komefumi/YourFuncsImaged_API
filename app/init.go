@@ -1,6 +1,8 @@
 package app
 
 import (
+	controllers "github.com/Komefumi/YourFuncsImaged_API/app/controllers"
+	interceptors "github.com/Komefumi/YourFuncsImaged_API/app/interceptors"
 	"github.com/joho/godotenv"
 	"github.com/revel/revel"
 )
@@ -38,6 +40,7 @@ func init() {
 	// revel.OnAppStart(ExampleStartupScript)
 	// revel.OnAppStart(InitDB)
 	// revel.OnAppStart(FillCache)
+	revel.InterceptFunc(interceptors.AuthInterceptor, revel.BEFORE, &controllers.AppWithAuth{})
 }
 
 // HeaderFilter adds common security headers
