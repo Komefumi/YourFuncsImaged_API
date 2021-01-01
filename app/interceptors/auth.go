@@ -1,17 +1,21 @@
 package interceptors
 
 import (
-	"github.com/Komefumi/YourFuncsImaged_API/app/controllers"
+	"fmt"
+
 	util "github.com/Komefumi/YourFuncsImaged_API/app/util"
 	"github.com/revel/revel"
-	"github.com/tidwall/gjson"
 )
 
 // AuthInterceptor to intercept authentication routes
 func AuthInterceptor(c *revel.Controller) revel.Result {
-	body := util.GetBodyString(c)
-  if error := util.ValidateToken(gjson.Get(body, "data.token").String()); error != nil {
-    return c.Redirect(controllers.App.Index)
+	tokenString := c.Request.Header.Get("Authorization")
+	error := util.ValidateToken(tokenString)
+	fmt.Println(error)
+	if error != nil {
+		fmt.Println("Currently error is ", error)
+		// return c.Redirect("/")
+		return c.RenderJSON(struct{}{})
 	}
 	return nil
 }
