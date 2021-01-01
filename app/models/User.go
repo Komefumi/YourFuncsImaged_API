@@ -28,9 +28,9 @@ func FindAuthUser(email, password string) (*User, error) {
 	fmt.Println("Email is", email)
 	// db.Where(&User{ Email: email }).First(&foundUser)
 	// db.Raw("SELECT id, email, password_hash FROM users WHERE ID = 1", email).Scan(foundUser)
+	// db()
 	db.Table("users").Select("id", "email", "password_hash").Where("email = ?", email).Scan(&foundUser)
-	fmt.Println("Found ", foundUser)
-	if (&foundUser == nil) {
+	if (&foundUser == nil || foundUser.Email == "") {
 		return nil, NotFoundError
 	}
 	fmt.Println(password)
