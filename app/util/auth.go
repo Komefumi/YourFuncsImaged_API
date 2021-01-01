@@ -3,7 +3,6 @@ package util
 import (
 	"errors"
 	"os"
-	"time"
 
 	jwt "github.com/dgrijalva/jwt-go"
 	"github.com/revel/revel"
@@ -22,7 +21,7 @@ func CreateToken(userid uint64) (string, error) {
   atClaims := jwt.MapClaims{}
   atClaims["authorized"] = true
   atClaims["user_id"] = userid
-  atClaims["exp"] = time.Now().Add(time.Minute * 60 * 24 * 2).Unix()
+  // atClaims["exp"] = time.Now().Add(time.Minute * 60 * 24 * 2).Unix()
   at := jwt.NewWithClaims(jwt.SigningMethodHS256, atClaims)
   token, err := at.SignedString([]byte(os.Getenv("ACCESS_SECRET")))
   if err != nil {
@@ -35,7 +34,9 @@ func CreateToken(userid uint64) (string, error) {
 // ValidateToken is used to validate JWT Token
 func ValidateToken(tokenString string) error {
   _, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
-    return os.Getenv("ACCESS_SECRET"), nil
+    // return nil, nil
+    // return struct{ Key []byte }{ Key: []byte(os.Getenv("ACCESS_SECRET")) }, nil
+    return []byte(os.Getenv("ACCESS_SECRET")), nil
   })
   if err != nil {
     return errors.New("Failed to authenticate")
