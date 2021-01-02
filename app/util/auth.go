@@ -12,6 +12,8 @@ import (
 var (
   // ErrCreateToken for failures in creating Authentication Token
   ErrCreateToken = errors.New("Failed To Create Auth Token")
+  // ErrGettingTokenClaims for failure in retrieving claims from Authentication Token
+  ErrGettingTokenClaims = errors.New("Failed to retrieve JWT Claims")
 )
 
 // CreateToken to create token
@@ -43,6 +45,24 @@ func ValidateToken(tokenString string) error {
   }
 
   return nil
+}
+
+// GetTokenClaims is used to retrieve claims from JWT Token
+func GetTokenClaims(tokenString string) (jwt.MapClaims, error) {
+  // tokenString := "<YOUR TOKEN STRING>"    
+  claims := jwt.MapClaims{}
+  _, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (interface{}, error) {
+    return []byte(os.Getenv("ACCESS_SECRET")), nil
+  })
+  // ... error handling
+  if err != nil {
+    return claims, ErrGettingTokenClaims
+  }
+// do something with decoded claims
+  // for key, val := range claims {
+  //   fmt.Printf("Key: %v, value: %v\n", key, val)
+  // }
+  return claims, nil
 }
 
 // AuthInterceptor function provides authentication interception
